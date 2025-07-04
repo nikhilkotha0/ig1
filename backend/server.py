@@ -7,7 +7,7 @@ import re
 import tempfile
 import shutil
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Tuple
 import logging
 
 # Add the parent directory to the path to import instaloader
