@@ -131,6 +131,7 @@ async def analyze_url(request: URLRequest):
         elif content_type == 'profile':
             # Handle profile
             try:
+                logger.info(f"Fetching profile: {shortcode_or_username}")
                 profile = Profile.from_username(loader.context, shortcode_or_username)
                 
                 download_options = {
