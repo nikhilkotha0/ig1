@@ -92,12 +92,15 @@ def extract_shortcode_or_username(url: str) -> Tuple[str, str]:
 @app.post("/api/analyze", response_model=ContentResponse)
 async def analyze_url(request: URLRequest):
     """Analyze Instagram URL and return content information."""
+    logger.info(f"Analyzing URL: {request.url}")
     try:
         shortcode_or_username, content_type = extract_shortcode_or_username(request.url)
+        logger.info(f"Extracted: {shortcode_or_username}, type: {content_type}")
         
         if content_type == 'post':
             # Handle post/reel
             try:
+                logger.info(f"Fetching post with shortcode: {shortcode_or_username}")
                 post = Post.from_shortcode(loader.context, shortcode_or_username)
                 
                 download_options = {}
@@ -112,6 +115,7 @@ async def analyze_url(request: URLRequest):
                         'description': 'Download image/thumbnail'
                     }
                 
+                logger.info(f"Successfully fetched post by @{post.owner_username}")
                 return ContentResponse(
                     content_type='reel' if post.is_video else 'post',
                     title=f"{'Reel' if post.is_video else 'Post'} by @{post.owner_username}",
