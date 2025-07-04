@@ -61,7 +61,7 @@ loader = Instaloader(
     quiet=True
 )
 
-def extract_shortcode_or_username(url: str) -> tuple[str, str]:
+def extract_shortcode_or_username(url: str) -> Tuple[str, str]:
     """Extract shortcode or username from Instagram URL and determine type."""
     
     # Clean URL
